@@ -6,7 +6,7 @@ class ManageMessages{
     loadAllMessages(){
         this.client_instance.on('message', async message => {
             const chat = await message.getChat();
-            const listAllMessages = await chat.fetchMessages({limit: 100});
+            const listAllMessages = await chat.fetchMessages({limit: 10});
 
             // for(let i = 0; i < listAllMessages.length; i++){
             //     console.log(listAllMessages[(listAllMessages.length)-1]);

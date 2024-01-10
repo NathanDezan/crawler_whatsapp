@@ -10,7 +10,7 @@ class ManageMessages{
                 const listAllMessages = await chat.fetchMessages({limit: 100});
 
                 for(let i = 0; i < listAllMessages.length; i++){
-                    console.log(listAllMessages[i].from);
+                    console.log(listAllMessages[i].author);
                     console.log(listAllMessages[i].body);
                 }
 

@@ -15,17 +15,19 @@ class ManageClient {
      * @returns {Client} The newly created client instance.
      */
     createClient() {
+        let argsTemp = [];
+
         if (this.noGuiSystem) {
-            args.push('--no-sandbox');
+            argsTemp.push('--no-sandbox');
         }
 
         if (this.noRootPrivileges) {
-            args.push('--disable-setuid-sandbox');
+            argsTemp.push('--disable-setuid-sandbox');
         }
 
         const client = new Client({
             authStrategy: new LocalAuth(),
-            puppeteer: { args: args }
+            puppeteer: { args: argsTemps }
         });
 
         return client;

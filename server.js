@@ -12,4 +12,8 @@ client_instance.on('message', message => {
 	if(message.body === '!ping') {
 		message.reply('pong');
 	}
+
+    if(message.body === '!break') {
+        return;
+    }
 });

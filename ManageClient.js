@@ -27,7 +27,7 @@ class ManageClient {
 
         const client = new Client({
             authStrategy: new LocalAuth(),
-            puppeteer: { args: argsTemps }
+            puppeteer: { args: argsTemp }
         });
 
         return client;

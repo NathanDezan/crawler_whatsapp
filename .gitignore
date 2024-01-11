@@ -4,3 +4,4 @@ test.js
 .env
 .wwebjs_auth
 .wwebjs_cache
+*.csv

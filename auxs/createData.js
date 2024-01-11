@@ -1,5 +1,6 @@
 const processText = require('./normalizeMessages.js');
 const convertTimestamp = require('./convertTimestamp.js');
+require('dotenv').config()
 
 /**
  * Creates a formatted data string from a list of messages.
@@ -13,7 +14,7 @@ function createData(listAllMessages){
         let tempData = "";
 
         for (let i = 0; i < listAllMessages.length; i++) {
-            const tempDatetime = convertTimestamp(listAllMessages[i]._data.t);
+            const tempDatetime = convertTimestamp(listAllMessages[i]._data.t, process.env.LOCALE_FORMAT_DATETIME);
             const tempNumber = listAllMessages[i]._data.author.user;
             const tempMessage = processText(listAllMessages[i]._data.body);
     

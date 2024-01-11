@@ -14,26 +14,27 @@ manageClient.statusClient(client_instance, 'ready');
 manageClient.statusClient(client_instance, 'initialize');
 
 client_instance.on('message', async message => {
-    // const manageMessages = new ManageMessages(client_instance);
-    const chat = await message.getChat();
+    if (message.type === 'chat' && message.body != " " && message.body != "") {
+        const chat = await message.getChat();
 
-    const listParams = message.body.split(' ');
-    const command = listParams[0];
-    const n = listParams[1];
+        const listParams = message.body.split(' ');
+        const command = listParams[0];
+        const n = listParams[1];
 
-    if (command === '!load_all_messages') {
-        const listAllMessages = await chat.fetchMessages({ limit: Infinity });
-        const tempData = createData(listAllMessages);
-        const fileName = 'all_messages.csv';
+        if (command === '!load_all_messages') {
+            const listAllMessages = await chat.fetchMessages({ limit: Infinity });
+            const tempData = createData(listAllMessages);
+            const fileName = 'all_messages.csv';
 
-        saveCSV(tempData, fileName);
-    } else if (command === '!load_n_messages') {
-        const listNMessages = await chat.fetchMessages({ limit: n });
-        const tempData = createData(listNMessages);
-        const fileName = 'n_messages.csv';
+            saveCSV(tempData, fileName);
+        } else if (command === '!load_n_messages') {
+            const listNMessages = await chat.fetchMessages({ limit: n });
+            const tempData = createData(listNMessages);
+            const fileName = 'n_messages.csv';
 
-        saveCSV(tempData, fileName);
-    } else {
-        console.log(message);
+            saveCSV(tempData, fileName);
+        } else {
+            console.log(message);
+        }
     }
 });

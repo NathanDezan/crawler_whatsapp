@@ -24,13 +24,13 @@ client_instance.on('message', async message => {
     if (command === '!load_all_messages') {
         const listAllMessages = await chat.fetchMessages({limit: Infinity});
         const tempData = createData(listAllMessages);
-        const fileName = './data/all_messages.csv';
+        const fileName = 'all_messages.csv';
 
         saveCSV(tempData, fileName);
     } else if (command === '!load_n_messages') {
         const listNMessages = await chat.fetchMessages({ limit: n });
         const tempData = createData(listNMessages);
-        const fileName = './data/n_messages.csv';
+        const fileName = 'n_messages.csv';
 
         saveCSV(tempData, fileName);
     } else {

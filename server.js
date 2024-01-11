@@ -1,5 +1,7 @@
-const ManageClient  = require('./ManageClient.js');
-const ManageMessages = require('./ManageMessages.js');
+const ManageClient = require('./ManageClient.js');
+const saveCSV = require('./auxs/saveCSV.js');
+
+// const ManageMessages = require('./ManageMessages.js');
 
 require('dotenv').config()
 
@@ -10,17 +12,27 @@ manageClient.authClient(client_instance);
 manageClient.statusClient(client_instance, 'ready');
 manageClient.statusClient(client_instance, 'initialize');
 
-client_instance.on('message', message => {
-	if(message.body === '!ping') {
-		message.reply('pong');
-	}
+client_instance.on('message', async message => {
+    // const manageMessages = new ManageMessages(client_instance);
+    const chat = await message.getChat();
 
-    if(message.body === '!break') {
-        return;
-    }
+    const listParams = message.body.split(' ');
+    const command = listParams[0];
+    const n = listParams[1];
 
-    if(message.body === '!load_all_messages') {
-        const manageMessages = new ManageMessages(client_instance);
-        manageMessages.loadAllMessages();
+    if (command === '!load_all_messages') {
+        // const listAllMessages = await chat.fetchMessages({limit: Infinity});
+        const listAllMessages = await chat.fetchMessages({limit: 10});
+        console.log(listAllMessages[(listAllMessages.length)-1]);
+        // saveCSV(listAllMessages, 'messages_group.csv');
+        // for(let i = 0; i < listAllMessages.length; i++){
+        //     console.log(listAllMessages[(listAllMessages.length)-1]);
+        //     // console.log(listAllMessages[i].body);
+        // }
+        console.log(listAllMessages[(listAllMessages.length)-1]);
+    } else if (message.body === '!load_n_messages') {
+        const listNMessages = await chat.fetchMessages({limit: process.env.LIMIT_MESSAGES});
+    } else {
+        console.log('Message not found');
     }
 });

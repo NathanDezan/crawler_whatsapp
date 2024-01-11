@@ -17,8 +17,6 @@ class ManageMessages{
             // console.log(allMessages);
         });
     }
-
-
 }
 
 module.exports = ManageMessages;

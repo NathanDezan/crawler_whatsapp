@@ -17,7 +17,7 @@ function saveCSV(content, fileName) {
 module.exports = saveCSV;
 
 // // Example usage:
-// const csvData = "Name, Age, City\nJohn, 25, New York\nJane, 30, San Francisco";
-// const fileName = "example.csv";
+const csvData = "Name, Age, City\nJohn, 25, New York\nJane, 30, San Francisco";
+const fileName = "example.csv";
 
-// saveCSV(csvData, fileName);
+saveCSV(csvData, fileName);

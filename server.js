@@ -1,5 +1,7 @@
 const ManageClient = require('./ManageClient.js');
 const saveCSV = require('./auxs/saveCSV.js');
+const processText = require('./auxs/normalizeMessages.js');
+const convertTimestamp = require('./auxs/convertTimestamp.js');
 
 // const ManageMessages = require('./ManageMessages.js');
 
@@ -21,17 +23,25 @@ client_instance.on('message', async message => {
     const n = listParams[1];
 
     if (command === '!load_all_messages') {
+        const fields = 'Datetime, NotifyName, Message, Number\n'
+        let tempData = "";
+
         // const listAllMessages = await chat.fetchMessages({limit: Infinity});
-        const listAllMessages = await chat.fetchMessages({limit: 10});
-        console.log(listAllMessages[(listAllMessages.length)-1]);
-        // saveCSV(listAllMessages, 'messages_group.csv');
-        // for(let i = 0; i < listAllMessages.length; i++){
-        //     console.log(listAllMessages[(listAllMessages.length)-1]);
-        //     // console.log(listAllMessages[i].body);
-        // }
-        // console.log(listAllMessages[(listAllMessages.length)-1]);
+
+        const listAllMessages = await chat.fetchMessages({ limit: 10 });
+
+        for (let i = 0; i < listAllMessages.length; i++) {
+            const tempDatetime = convertTimestamp(listAllMessages[i]._data.t);
+            const tempNotifyName = listAllMessages[i]._data.notifyName;
+            const tempMessage = processText(listAllMessages[i]._data.body);
+            const tempNumber = listAllMessages[i]._data.author.user;
+
+            tempData += `${tempDatetime}, ${tempNotifyName}, ${tempMessage}, ${tempNumber}\n`;
+        }
+
+        saveCSV((fields + tempData), 'all_messages.csv');
     } else if (message.body === '!load_n_messages') {
-        const listNMessages = await chat.fetchMessages({limit: process.env.LIMIT_MESSAGES});
+        const listNMessages = await chat.fetchMessages({ limit: process.env.LIMIT_MESSAGES });
     } else {
         console.log('Message not found');
     }

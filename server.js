@@ -1,7 +1,5 @@
 const ManageClient = require('./ManageClient.js');
 const saveCSV = require('./auxs/saveCSV.js');
-const processText = require('./auxs/normalizeMessages.js');
-const convertTimestamp = require('./auxs/convertTimestamp.js');
 const createData = require('./auxs/createData.js');
 
 // const ManageMessages = require('./ManageMessages.js');

@@ -1,3 +1,6 @@
+const processText = require('./normalizeMessages.js');
+const convertTimestamp = require('./convertTimestamp.js');
+
 /**
  * Creates a formatted data string from a list of messages.
  * 

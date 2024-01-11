@@ -2,3 +2,5 @@ node_modules
 bun.lockb
 test.js
 .env
+.wwebjs_auth
+.wwebjs_cache

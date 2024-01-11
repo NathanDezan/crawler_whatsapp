@@ -29,7 +29,7 @@ client_instance.on('message', async message => {
         //     console.log(listAllMessages[(listAllMessages.length)-1]);
         //     // console.log(listAllMessages[i].body);
         // }
-        console.log(listAllMessages[(listAllMessages.length)-1]);
+        // console.log(listAllMessages[(listAllMessages.length)-1]);
     } else if (message.body === '!load_n_messages') {
         const listNMessages = await chat.fetchMessages({limit: process.env.LIMIT_MESSAGES});
     } else {

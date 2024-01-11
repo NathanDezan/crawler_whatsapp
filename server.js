@@ -22,7 +22,8 @@ client_instance.on('message', async message => {
     const n = listParams[1];
 
     if (command === '!load_all_messages') {
-        const listAllMessages = await chat.fetchMessages({limit: Infinity});
+        // const listAllMessages = await chat.fetchMessages({limit: Infinity});
+        const listAllMessages = await chat.fetchMessages();
         const tempData = createData(listAllMessages);
         const fileName = 'all_messages.csv';
 

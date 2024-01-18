@@ -1,6 +1,7 @@
 const ManageClient = require('./ManageClient.js');
 const saveCSV = require('./auxs/saveCSV.js');
 const createData = require('./auxs/createData.js');
+const appendData = require('./auxs/appendData.js');
 
 // const ManageMessages = require('./ManageMessages.js');
 
@@ -34,7 +35,21 @@ client_instance.on('message', async message => {
 
             saveCSV(tempData, fileName);
         } else {
-            console.log(message);
+            const filePath = '../output.csv';
+            const tempMessage = message.body;
+
+            const fileExists = fs.existsSync(filePath);
+
+            if (!fileExists) {
+                const fields = 'Datetime, Number, Message\n';
+                appendData(filePath, (fields + tempMessage))
+                    .then((result) => console.log(result))
+                    .catch((error) => console.error(error)); 
+            }else{
+                appendData(filePath, tempMessage)
+                    .then((result) => console.log(result))
+                    .catch((error) => console.error(error));
+            }
         }
     }
 });

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function appendData(filePath, text) {
+function appendData(filePath, text, fileExists) {
     return new Promise((resolve, reject) => {
         const fileStream = fs.createWriteStream(filePath, { flags: fileExists ? 'a' : 'w' });
 

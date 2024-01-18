@@ -43,11 +43,11 @@ client_instance.on('message', async message => {
 
             if (!fileExists) {
                 const fields = 'Datetime, Number, Message\n';
-                appendData(filePath, (fields + tempMessage))
+                appendData(filePath, (fields + tempMessage), fileExists)
                     .then((result) => console.log(result))
                     .catch((error) => console.error(error)); 
             }else{
-                appendData(filePath, tempMessage)
+                appendData(filePath, tempMessage, fileExists)
                     .then((result) => console.log(result))
                     .catch((error) => console.error(error));
             }

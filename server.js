@@ -46,10 +46,10 @@ client_instance.on('message', async message => {
             const tempNumber = message._data.author.user;
             const tempMessage = processText(message._data.body);
 
-            const tempData = `${tempDatetime}, ${tempNumber}, ${tempMessage}\n`;
+            const tempData = `${tempDatetime}, ${tempNumber}, ${tempMessage}`;
             
             if (!fileExists) {
-                appendData(filePath, (fields + (tempData)), fileExists)
+                appendData(filePath, (fields + tempData), fileExists)
                     .then((result) => console.log(result))
                     .catch((error) => console.error(error)); 
             }else{

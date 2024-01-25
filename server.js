@@ -2,6 +2,7 @@ const ManageClient = require('./ManageClient.js');
 const saveCSV = require('./auxs/saveCSV.js');
 const createData = require('./auxs/createData.js');
 const appendData = require('./auxs/appendData.js');
+const convertTimestamp = require('./auxs/convertTimestamp.js');
 const fs = require('fs');
 
 // const ManageMessages = require('./ManageMessages.js');
@@ -36,18 +37,22 @@ client_instance.on('message', async message => {
 
             saveCSV(tempData, fileName);
         } else {
-            const filePath = '../output.csv';
-            const tempMessage = message.body;
-
+            const filePath = 'realtime_messages.csv';
             const fileExists = fs.existsSync(filePath);
 
+            const fields = 'Datetime, Number, Message\n';
+            const tempDatetime = convertTimestamp(message._data.t, process.env.LOCALE_FORMAT_DATETIME);
+            const tempNumber = message._data.author.user;
+            const tempMessage = processText(message._data.body);
+
+            const tempData = `${tempDatetime}, ${tempNumber}, ${tempMessage}\n`;
+            
             if (!fileExists) {
-                const fields = 'Datetime, Number, Message\n';
-                appendData(filePath, (fields + tempMessage), fileExists)
+                appendData(filePath, (fields + (tempData)), fileExists)
                     .then((result) => console.log(result))
                     .catch((error) => console.error(error)); 
             }else{
-                appendData(filePath, tempMessage, fileExists)
+                appendData(filePath, tempData, fileExists)
                     .then((result) => console.log(result))
                     .catch((error) => console.error(error));
             }

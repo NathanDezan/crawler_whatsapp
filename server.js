@@ -43,9 +43,9 @@ client_instance.on('message', async message => {
 
             const fields = 'Datetime, Number, Message\n';
             const tempDatetime = convertTimestamp(message._data.t, process.env.LOCALE_FORMAT_DATETIME);
-            const tempNumber = message._data.author.user;
+            const tempNumber = message._data.author;
             const tempMessage = processText(message._data.body);
-            console.log(message);
+
             const tempData = `${tempDatetime}, ${tempNumber}, ${tempMessage}`;
             
             if (!fileExists) {
